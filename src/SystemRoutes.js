@@ -4,13 +4,13 @@ import {
     Route,
 } from "react-router-dom";
 
-import { App, Value } from "./app/component";
+import { Value, Main } from "./app/component";
 
 function SystemRoutes() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<App />} />
+                <Route path="/" element={<Main />} />
                 <Route path="value" element={<Value />} />
             </Routes>
         </BrowserRouter>
