@@ -4,14 +4,15 @@ import {
     Route,
 } from "react-router-dom";
 
-import { Value, Main } from "./app/component";
+import { Value, Main, Contact } from "./app/component";
 
 function SystemRoutes() {
     return (
         <HashRouter>
             <Routes>
                 <Route path="/" element={<Main />} />
-                <Route path="value" element={<Value />} />
+                <Route path="admin" element={<Value />} />
+                <Route path="contact" element={<Contact />} />
             </Routes>
         </HashRouter>
     );
