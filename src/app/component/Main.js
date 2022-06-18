@@ -3,19 +3,18 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import FormHelperText from "@mui/material/FormHelperText";
-import TextField from "@mui/material/TextField"
 import { useEffect, useState } from "react";
 import TopBar from "./TopBar";
 import CircularProgress from "@mui/material/CircularProgress";
 import { getVaccinesByCriteria } from "../service/vaccine";
 import FormItem from "./FormItem";
-import FormGrid from "./FormGrid";
+import Form from "./Form";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Grid from "@mui/material/Grid";
 import Checkbox from "@mui/material/Checkbox";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getStates } from "../service/states";
+import TextField from "@mui/material/TextField";
 
 function Main() {
 
@@ -52,7 +51,7 @@ function Main() {
     return isLoading ? (<CircularProgress />) : (
         <div className="Main">
             <TopBar title="SICOV - Busca de Vacinas" />
-            <FormGrid>
+            <Form>
                 <FormItem>
                     <FormControl fullWidth>
                         <InputLabel id="vac-label">Vacina</InputLabel>
@@ -80,6 +79,7 @@ function Main() {
                         variant="outlined"
                         fullWidth
                         value={age}
+                        defaultValue={age}
                         onChange={e => setAge(e.target.value)}
                     />
                 </FormItem>
@@ -124,24 +124,24 @@ function Main() {
                         <FormHelperText>{state ? "Escolha uma cidade (opcional)" : "Escolha primeiro um estado para poder escolher a cidade!"}</FormHelperText>
                     </FormControl>
                 </FormItem>
-                <Grid item>
+                <FormItem>
                     <FormControl>
                         <FormControlLabel control={<Checkbox />} label="Comorbidade" value={comorbidity} onChange={e => setComorbidity(e.target.value)} />
                     </FormControl>
-                </Grid>
-                <Grid item>
+                </FormItem>
+                <FormItem>
                     <FormControl>
                         <FormControlLabel control={<Checkbox />} label="Grupo de risco" value={riskGroup} onChange={e => setRiskGroup(e.target.value)} />
                     </FormControl>
-                </Grid>
-                <FormItem sx={{textAlign: 'center'}}>
-                    <FormControl sx={{textAlign: 'center'}}>
+                </FormItem>
+                <FormItem justifyContent="center">
+                    <FormControl>
                         <Button variant="contained" color="success" endIcon={<ArrowForwardIcon />}>
                             Buscar
                         </Button>
                     </FormControl>
                 </FormItem>
-            </FormGrid>
+            </Form>
         </div>
     )
 

@@ -3,4 +3,5 @@ export { default as Value } from './Value';
 export { default as TopBar } from './TopBar';
 export { default as Main } from './Main';
 export { default as FormItem } from './FormItem';
-export { default as FormGrid } from './FormGrid';
+export { default as Form } from './Form';
+export { default as Contact } from './Contact';
