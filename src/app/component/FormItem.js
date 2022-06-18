@@ -1,11 +1,11 @@
-import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
 function FormItem(props) {
 
     return (
-        <Grid item sx={[{padding: 1}, props.sx]}>
+        <Box sx={[{padding: 1, display: 'flex'}, props.sx]} justifyContent={props.justifyContent}>
             {props.children}
-        </Grid>
+        </Box>
     )
     
 }

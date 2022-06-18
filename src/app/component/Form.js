@@ -1,10 +1,10 @@
-import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 import { styled } from "@mui/system";
 
 
-function FormGrid(props) {
+function Form(props) {
 
-    const StyledFormGrid = styled(Grid)(({ theme }) => ({
+    const StyledForm = styled(Box)(({ theme }) => ({
         x: { flexGrow: 1 },
         container: true,
         justifyContent: "center",
@@ -20,9 +20,9 @@ function FormGrid(props) {
     }));
 
     return (
-        <StyledFormGrid>{props.children}</StyledFormGrid>
+        <StyledForm>{props.children}</StyledForm>
     )
 
 }
 
-export default FormGrid;
+export default Form;
