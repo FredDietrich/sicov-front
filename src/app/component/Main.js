@@ -6,7 +6,7 @@ import FormHelperText from "@mui/material/FormHelperText";
 import { useEffect, useState } from "react";
 import TopBar from "./TopBar";
 import CircularProgress from "@mui/material/CircularProgress";
-import { getVaccinesByCriteria } from "../service/vaccine";
+import { getAllVaccines } from "../service/vaccine";
 import FormItem from "./FormItem";
 import Form from "./Form";
 import Button from "@mui/material/Button";
@@ -15,6 +15,8 @@ import Checkbox from "@mui/material/Checkbox";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { getStates } from "../service/states";
 import TextField from "@mui/material/TextField";
+import { Alert, Collapse, IconButton } from "@mui/material";
+import Close from "@mui/icons-material/Close";
 
 function Main() {
 
@@ -25,23 +27,30 @@ function Main() {
     const [city, setCity] = useState('');
     const [comorbidity, setComorbidity] = useState(false);
     const [riskGroup, setRiskGroup] = useState(false);
+    const [error, setError] = useState('');
 
     const [vaccines, setVaccines] = useState([]);
     const [states, setStates] = useState([]);
 
     useEffect(() => {
-        async function fetchVaccines() {
+        function fetchVaccines() {
             setIsLoading(true);
-            getVaccinesByCriteria({ dummy: 'criteria' }).then(resVaccines => {
+            getAllVaccines().then(resVaccines => {
                 setVaccines(resVaccines);
                 setIsLoading(false);
+            }).catch(e => {
+                console.error(e);
+                setError("Não foi possível carregar as vacinas, tente novamente mais tarde.");
             });
         }
-        async function fetchStates() {
+        function fetchStates() {
             setIsLoading(true);
             getStates().then(resStates => {
                 setStates(resStates);
                 setIsLoading(false);
+            }).catch(e => {
+                console.error(e);
+                setError("Não foi possível carregar os estados, tente novamente mais tarde.");
             });
         }
         fetchVaccines();
@@ -51,6 +60,22 @@ function Main() {
     return isLoading ? (<CircularProgress />) : (
         <div className="Main">
             <TopBar title="SICOV - Busca de Vacinas" />
+            <Collapse in={!!error}>
+                <Alert severity="error" action={
+                    <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                            setError("");
+                        }}
+                    >
+                        <Close fontSize="inherit" />
+                    </IconButton>}
+                    >
+                {error}
+                </Alert>
+            </Collapse>
             <Form>
                 <FormItem>
                     <FormControl fullWidth>
@@ -78,8 +103,8 @@ function Main() {
                         label="Idade"
                         variant="outlined"
                         fullWidth
+                        required
                         value={age}
-                        defaultValue={age}
                         onChange={e => setAge(e.target.value)}
                     />
                 </FormItem>
@@ -117,7 +142,7 @@ function Main() {
                             <MenuItem value="">
                                 <em>Todas</em>
                             </MenuItem>
-                            { state && states &&
+                            {state && states &&
                                 states.filter(fState => fState.key === state)[0].cities.sort().map((mCity, index) => <MenuItem key={index} value={mCity}>{mCity}</MenuItem>)
                             }
                         </Select>
@@ -136,7 +161,12 @@ function Main() {
                 </FormItem>
                 <FormItem justifyContent="center">
                     <FormControl>
-                        <Button variant="contained" color="success" endIcon={<ArrowForwardIcon />}>
+                        <Button
+                            variant="contained"
+                            color="success"
+                            endIcon={<ArrowForwardIcon />}
+                            type="submit"
+                        >
                             Buscar
                         </Button>
                     </FormControl>
