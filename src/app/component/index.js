@@ -5,3 +5,4 @@ export { default as Main } from './Main';
 export { default as FormItem } from './FormItem';
 export { default as Form } from './Form';
 export { default as Contact } from './Contact';
+export { default as Results } from './Results';
