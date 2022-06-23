@@ -5,9 +5,6 @@ import { styled } from "@mui/system";
 function Form(props) {
 
     const StyledForm = styled(Box)(({ theme }) => ({
-        x: { flexGrow: 1 },
-        container: true,
-        justifyContent: "center",
         [theme.breakpoints.down('md')]: {
             margin: '0 0 0 0',
         },
@@ -20,7 +17,13 @@ function Form(props) {
     }));
 
     return (
-        <StyledForm>{props.children}</StyledForm>
+        <StyledForm
+            component='form'
+            alignItems='center'
+            container={true}
+        >
+            {props.children}
+        </StyledForm >
     )
 
 }
