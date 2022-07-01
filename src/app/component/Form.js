@@ -21,6 +21,7 @@ function Form(props) {
             component='form'
             alignItems='center'
             container={true}
+            sx={props.sx}
         >
             {props.children}
         </StyledForm >
