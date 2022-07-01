@@ -12,11 +12,10 @@ import Form from "./Form";
 import Button from "@mui/material/Button";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForward from '@mui/icons-material/ArrowForward';
 import { getStates } from "../service/states";
 import TextField from "@mui/material/TextField";
-import { Alert, Collapse, IconButton } from "@mui/material";
-import Close from "@mui/icons-material/Close";
+import Error from "./Error";
 
 function Main() {
 
@@ -59,23 +58,8 @@ function Main() {
 
     return isLoading ? (<CircularProgress />) : (
         <div className="Main">
-            <TopBar title="SICOV - Busca de Vacinas" />
-            <Collapse in={!!error}>
-                <Alert severity="error" action={
-                    <IconButton
-                        aria-label="close"
-                        color="inherit"
-                        size="small"
-                        onClick={() => {
-                            setError("");
-                        }}
-                    >
-                        <Close fontSize="inherit" />
-                    </IconButton>}
-                    >
-                {error}
-                </Alert>
-            </Collapse>
+            <TopBar>SICOV - Busca de Vacinas</TopBar>
+            <Error error={error} setError={setError} />
             <Form>
                 <FormItem>
                     <FormControl fullWidth>
@@ -93,7 +77,6 @@ function Main() {
                             {vaccines &&
                                 vaccines.map((vac, index) => <MenuItem key={index} value={vac.name}>{vac.name}</MenuItem>)
                             }
-
                         </Select>
                         <FormHelperText>Escolha uma vacina de interesse, ou deixe em branco para listar todas as disponíveis para você.</FormHelperText>
                     </FormControl>
@@ -103,6 +86,7 @@ function Main() {
                         label="Idade"
                         variant="outlined"
                         fullWidth
+                        autoFocus
                         required
                         value={age}
                         onChange={e => setAge(e.target.value)}
@@ -164,7 +148,7 @@ function Main() {
                         <Button
                             variant="contained"
                             color="success"
-                            endIcon={<ArrowForwardIcon />}
+                            endIcon={<ArrowForward />}
                             type="submit"
                         >
                             Buscar
