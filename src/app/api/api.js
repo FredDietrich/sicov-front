@@ -1,8 +1,18 @@
-const baseUrl = 'https://sicov.free.beeceptor.com/'
+const baseUrl = 'https://sicov-back.free.beeceptor.com/'
 
 const Api = {
 
-    get: (endpoint) => fetch(`${baseUrl}${endpoint}`).then(res => res.json())
+    get: (endpoint) => fetch(`${baseUrl}${endpoint}`).then(res => res.json()),
+    post: (endpoint, data) => {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        return fetch(`${baseUrl}${endpoint}`, options).then(res => res.json())
+    }
 
 }
 
