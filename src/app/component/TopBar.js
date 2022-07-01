@@ -5,7 +5,7 @@ function TopBar(props) {
     return (
         <div className="TopBar">
             <Typography variant='h3' component='div' gutterBottom>
-                {props.title}
+                {props.children}
             </Typography>
         </div>
     )
