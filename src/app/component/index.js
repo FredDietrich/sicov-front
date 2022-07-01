@@ -6,3 +6,5 @@ export { default as FormItem } from './FormItem';
 export { default as Form } from './Form';
 export { default as Contact } from './Contact';
 export { default as Results } from './Results';
+export { default as Login } from './Login';
+export { default as CreateVaccine } from './CreateVaccine';
