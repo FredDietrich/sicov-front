@@ -4,7 +4,7 @@ import {
     Route,
 } from "react-router-dom";
 
-import { Value, Main, Contact, Results } from "./app/component";
+import { Value, Main, Contact, Results, Login, CreateVaccine } from "./app/component";
 
 function SystemRoutes() {
     return (
@@ -14,6 +14,8 @@ function SystemRoutes() {
                 <Route path="admin" element={<Value />} />
                 <Route path="contact" element={<Contact />} />
                 <Route path="results" element={<Results />} />
+                <Route path="login" element={<Login />} />
+                <Route path="create" element={<CreateVaccine />} />
             </Routes>
         </HashRouter>
     );
