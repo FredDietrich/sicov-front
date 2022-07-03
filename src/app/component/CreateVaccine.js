@@ -1,10 +1,11 @@
-import { Autocomplete, Button, createFilterOptions, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import { Typography } from "@mui/material";
 import { useState } from "react";
+import AutoComplete from "./AutoComplete";
 import Form from "./Form";
 import FormItem from "./FormItem";
 import TopBar from "./TopBar";
+import VaccineModal from "./VaccineModal";
 
-const filter = createFilterOptions();
 
 export default function CreateVaccine() {
 
@@ -42,75 +43,27 @@ export default function CreateVaccine() {
     return (
         <div className="CreateVaccine">
             <TopBar>SICOV - Cadastro de Vacinas</TopBar>
+            <Typography
+                    variant="h6"
+                    component="div"
+                    gutterBottom
+                    sx={{ textAlign: 'center' }}
+                >
+                    Selecione uma vacina da lista, ou insira uma nova, caso não encontrar a desejada.
+                </Typography>
             <Form>
                 <FormItem>
-                    <Autocomplete
-                        fullWidth
-                        value={vaccine}
-                        onChange={(e, newName) => {
-                            if (typeof newValue === 'string') {
-                                setTimeout(() => {
-                                    setOpen(true);
-                                    setModalValues({
-                                        name: newName,
-                                        year: '',
-                                    });
-                                });
-                            } else if (newName && newName.inputValue) {
-                                setOpen(true);
-                                setModalValues({
-                                    title: newName.inputValue,
-                                    year: '',
-                                });
-                            } else {
-                                setVaccine(newName);
-                            }
-                        }}
-                        filterOptions={(options, params) => {
-                            const filtered = filter(options, params);
-                            if (params.inputValue !== '') {
-                                filtered.push({
-                                    inputValue: params.inputValue,
-                                    title: `Adicionar "${params.inputValue}"`,
-                                });
-                            }
-                            return filtered;
-                        }}
-                        id="vaccine-autocomplete"
-                        options={existingVaccines}
-                        getOptionLabel={(option) => {
-                            if (typeof option === 'string') {
-                                return option;
-                            }
-                            if (option.inputValue) {
-                                return option.inputValue;
-                            }
-                            return option.name;
-                        }}
-                        selectOnFocus
-                        clearOnBlur
-                        handleHomeEndKeys
-                        renderOption={(props, option) => <li {...props}>{option.name}</li>}
-                        sx={{ height: 500 }}
-                        freeSolo
-                        renderInput={(params) => <TextField {...params} title={params.name} label="Vacina" />}
+                    <AutoComplete
+                        Value={vaccine}
+                        setOpen={setOpen}
+                        setModalValues={setModalValues}
+                        setValue={setVaccine}
+                        existingValues={existingVaccines}
+
                     />
                 </FormItem>
             </Form>
-            <Dialog open={open} onClose={handleModalClose}>
-                <form onSubmit={handleModalSubmit}>
-                    <DialogTitle>Adicionar nova vacina</DialogTitle>
-                    <DialogContent>
-                        <DialogContentText>
-                            Não encontrou a vacina que precisa na lista? Insira uma nova agora mesmo!
-                        </DialogContentText>
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={handleModalClose}>Cancelar</Button>
-                        <Button type="submit">Adicionar</Button>
-                    </DialogActions>
-                </form>
-            </Dialog>
+            <VaccineModal open={open} handleModalClose={handleModalClose} handleModalSubmit={handleModalSubmit} />
         </div>
     )
 
