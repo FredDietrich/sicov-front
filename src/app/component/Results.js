@@ -6,22 +6,32 @@ import FormItem from "./FormItem";
 import Form from "./Form";
 import ArrowForward from "@mui/icons-material/ArrowForward";
 import TopBar from "./TopBar";
-import Api from "../api/api";
 import Error from "./Error";
 import { Typography } from "@mui/material";
 import { getVaccineByCriteria } from "../service/vaccine";
+import { useDispatch, useSelector } from "react-redux";
+import { insertVaccines } from "../reducer/vaccinesReducer";
+import { useNavigate } from "react-router-dom";
 
 function Results() {
+
+    const selectCriteria = useSelector(state => state.criteria.criteria);
+
+    const [criteria, setCriteria] = useState({});
 
     const [rows, setRows] = useState([]);
     const [selectedVaccines, setSelectedVaccines] = useState([]);
     const [error, setError] = useState("");
     const [isLoading, setIsloading] = useState(false);
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     useEffect(() => {
+        setCriteria(selectCriteria);
         function getVaccines() {
             setIsloading(true);
-            getVaccineByCriteria().then(data => {
+            getVaccineByCriteria(criteria).then(data => {
                 setRows(data);
                 setIsloading(false);
             }).catch(e => {
@@ -30,12 +40,12 @@ function Results() {
             })
         }
         getVaccines();
-    }, [])
+    }, [selectCriteria, criteria])
 
     function handleContact() {
-        //Api.post('contact', selectedVaccines).catch(e => {
-            setError("Não foi possível completar a solicitação de recebimento de contato, por favor tente novamente mais tarde.");
-        //});
+        console.log(selectedVaccines)
+        dispatch(insertVaccines(selectedVaccines));
+        navigate("/contact");
     }
 
     const data = {
