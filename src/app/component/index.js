@@ -1,4 +1,3 @@
-export { default as App } from './App';
 export { default as Value } from './Value';
 export { default as TopBar } from './TopBar';
 export { default as Main } from './Main';
@@ -8,3 +7,4 @@ export { default as Contact } from './Contact';
 export { default as Results } from './Results';
 export { default as Login } from './Login';
 export { default as CreateVaccine } from './CreateVaccine';
+export { default as VaccineModal } from './VaccineModal';
