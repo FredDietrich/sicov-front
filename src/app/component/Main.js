@@ -16,6 +16,9 @@ import ArrowForward from '@mui/icons-material/ArrowForward';
 import { getStates } from "../service/states";
 import TextField from "@mui/material/TextField";
 import Error from "./Error";
+import { useDispatch } from "react-redux";
+import { addCriteria } from "../reducer/criteriaReducer";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Main() {
 
@@ -30,6 +33,9 @@ function Main() {
 
     const [vaccines, setVaccines] = useState([]);
     const [states, setStates] = useState([]);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect(() => {
         function fetchVaccines() {
@@ -55,6 +61,20 @@ function Main() {
         fetchVaccines();
         fetchStates();
     }, [])
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const payload  = {
+            vaccine: vaccine,
+            age: age,
+            state: state,
+            city: city,
+            comorbidity: comorbidity,
+            riskGroup: riskGroup
+        };
+        dispatch(addCriteria(payload));
+        navigate("/results");
+    }
 
     return isLoading ? (<CircularProgress />) : (
         <div className="Main">
@@ -149,7 +169,7 @@ function Main() {
                             variant="contained"
                             color="success"
                             endIcon={<ArrowForward />}
-                            type="submit"
+                            onClick={handleSubmit}
                         >
                             Buscar
                         </Button>
