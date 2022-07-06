@@ -6,4 +6,5 @@ export { default as Contact } from './Contact';
 export { default as Results } from './Results';
 export { default as Login } from './Login';
 export { default as CreateVaccine } from './CreateVaccine';
-export { default as VaccineModal } from './VaccineModal';
+export { default as Modal } from './Modal';
+export { default as Reports } from './Reports';
