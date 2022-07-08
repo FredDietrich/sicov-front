@@ -138,18 +138,18 @@ export default function CreateVaccine() {
                     <FormItem>
                         <DesktopDatePicker
                             label="Data início"
-                            inputFormat="MM/dd/yyyy"
+                            inputFormat="dd/MM/yyyy"
                             value={modalValuesVaccine.startDate}
-                            onChange={e => setModalValuesVaccine({ ...modalValuesVaccine, startDate: e.target.value })}
+                            onChange={newValue => setModalValuesVaccine({ ...modalValuesVaccine, startDate: newValue })}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </FormItem>
                     <FormItem>
                         <DesktopDatePicker
                             label="Data Fim"
-                            inputFormat="MM/dd/yyyy"
+                            inputFormat="dd/MM/yyyy"
                             value={modalValuesVaccine.endDate}
-                            onChange={e => setModalValuesVaccine({ ...modalValuesVaccine, endDate: e.target.value })}
+                            onChange={newValue => setModalValuesVaccine({ ...modalValuesVaccine, endDate: newValue })}
                             renderInput={(params) => <TextField {...params} />}
                         />
                     </FormItem>
